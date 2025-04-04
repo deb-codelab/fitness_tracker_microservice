@@ -41,9 +41,6 @@ exports.login = async (req, res) => {
 
 exports.verifyToken = (req, res) => {
   try {
-    if (!req.cookies.token) {
-      return res.status(401).json({ valid: false, message: "Unauthorized" });
-    }
     const tokenValidity = jwtTokenValidator(req);
     if (!tokenValidity) {
       return res.status(401).json({ valid: false, message: "Unauthorized" });

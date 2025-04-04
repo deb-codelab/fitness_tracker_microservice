@@ -19,7 +19,7 @@ const jwtTokenValidator = (req) => {
       return decoded;
     } else if ("cookies" === process.env.AUTH_TYPE) {
       // Get token from cookies
-      const token = req.cookies.token;
+      const token = req.cookies;
 
       if (!token) {
         return false;
