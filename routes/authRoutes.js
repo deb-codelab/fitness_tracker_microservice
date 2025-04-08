@@ -10,6 +10,9 @@ router.post("/signup", authController.signup);
 // Login Route
 router.post("/login", authController.login);
 
+// Logout Route
+router.get("/logout", authController.logout);
+
 // Verify Token Route
 router.get("/verify-token", authController.verifyToken);
 
