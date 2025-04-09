@@ -7,6 +7,8 @@ const authRoutes = require("./routes/authRoutes");
 const defaultRoutes = require("./routes/defaultRoutes");
 const userRoutes = require("./routes/userRoutes");
 const userProfileRoutes = require("./routes/userProfileRoutes");
+const fitnessGoalsRoutes = require("./routes/fitnessGoalsRoute");
+
 const app = express();
 require('dotenv').config()
 
@@ -28,14 +30,14 @@ app.use("/", defaultRoutes);
 // Mount API Auth route
 app.use("/api/auth", authRoutes);
 
-// Mount API routes for fitness
-app.use("/api/fitness", fitnessRoutes);
-
 // Mount user routes for users
 app.use("/api/users", userRoutes);
 
 // Mount user routes for user profile
 app.use("/api/user-profile", userProfileRoutes);
+
+// Mount fitness goals routes for user
+app.use("/api/fitness-goals", fitnessGoalsRoutes);
 
 // Sync database and start server
 const PORT = process.env.PORT;
