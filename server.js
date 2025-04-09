@@ -3,9 +3,10 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const fitnessRoutes = require("./routes/fitnessRoutes");
-const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const defaultRoutes = require("./routes/defaultRoutes");
+const userRoutes = require("./routes/userRoutes");
+const userProfileRoutes = require("./routes/userProfileRoutes");
 const app = express();
 require('dotenv').config()
 
@@ -33,9 +34,12 @@ app.use("/api/fitness", fitnessRoutes);
 // Mount user routes for users
 app.use("/api/users", userRoutes);
 
+// Mount user routes for user profile
+app.use("/api/user-profile", userProfileRoutes);
+
 // Sync database and start server
 const PORT = process.env.PORT;
-const MONGO_URI = process.env.MONGO_URI ;
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose
   .connect(MONGO_URI)

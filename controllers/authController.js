@@ -75,7 +75,7 @@ exports.login = async (req, res) => {
 
     const token = jwtTokenGenerator(user.id);
     res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production" || false, sameSite: "lax", });
-    res.status(200).json({ message: "Login successful", userData: { id: user.id, name: user.name, email: user.email, login: true } });
+    res.status(200).json({ message: "Login successful", userData: { id: user.id, name: user.name, email: user.email, login: true, token: token } });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
