@@ -2,12 +2,12 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const fitnessRoutes = require("./routes/fitnessRoutes");
 const authRoutes = require("./routes/authRoutes");
 const defaultRoutes = require("./routes/defaultRoutes");
 const userRoutes = require("./routes/userRoutes");
 const userProfileRoutes = require("./routes/userProfileRoutes");
 const fitnessGoalsRoutes = require("./routes/fitnessGoalsRoute");
+const s3Routes = require("./routes/s3Routes");
 
 const app = express();
 require('dotenv').config()
@@ -38,6 +38,9 @@ app.use("/api/user-profile", userProfileRoutes);
 
 // Mount fitness goals routes for user
 app.use("/api/fitness-goals", fitnessGoalsRoutes);
+
+// Mount S3 routes
+app.use("/api/s3", s3Routes);
 
 // Sync database and start server
 const PORT = process.env.PORT;

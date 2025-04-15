@@ -70,12 +70,12 @@ exports.login = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(400).json({ message: "Invalid email or password" });
+      return res.status(401).json({ message: "Invalid email or password" });
     }
 
     const token = jwtTokenGenerator(user.id);
     res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production" || false, sameSite: "lax", });
-    res.status(200).json({ message: "Login successful", userData: { id: user.id, name: user.name, email: user.email, login: true, token: token } });
+    res.status(200).json({ message: "Login successful", userData: { id: user.id, name: user.name, email: user.email, login: true } });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

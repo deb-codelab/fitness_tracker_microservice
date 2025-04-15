@@ -6,7 +6,7 @@ const jwtTokenValidator = (req) => {
     if ("token" === process.env.AUTH_TYPE) {
       // Get token from headers
       const token = req.header("Authorization");
-
+      console.log("token:", token);
       if (!token) {
         return false;
       }
@@ -20,7 +20,6 @@ const jwtTokenValidator = (req) => {
     } else if ("cookies" === process.env.AUTH_TYPE) {
       // Get token from cookies
       const token = req.cookies;
-
       if (!token) {
         return false;
       }
