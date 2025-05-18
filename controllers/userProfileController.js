@@ -1,6 +1,7 @@
 const UserProfile = require("../models/UserProfileModel");
 
 exports.addUserProfile = async (req, res) => {
+
     try {
         const userId = req.user.userId; // Comes from auth middleware
         const { gender, bloodGroup, height, address, bio, profilePicture } = req.body;

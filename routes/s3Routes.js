@@ -5,5 +5,6 @@ const s3Controller = require("../controllers/s3Controller");
 
 
 router.get("/generate-upload-url", authMiddleware, s3Controller.getSignedURL);
+router.delete("/delete-object", authMiddleware, s3Controller.deleteFile);
 
 module.exports = router;

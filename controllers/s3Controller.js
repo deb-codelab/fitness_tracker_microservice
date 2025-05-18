@@ -10,7 +10,6 @@ const s3 = new S3Client({
 });
 
 exports.getSignedURL = async (req, res) => {
-    console.log("req.user:", req.user);
     const { fileType } = req.query;
     const fileName = `${req.user.userId}/profile-pictures/${Date.now()}.${fileType.split("/")[1]}`;
 
@@ -26,3 +25,31 @@ exports.getSignedURL = async (req, res) => {
         fileUrl: `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`,
     });
 }
+
+exports.deleteFile = async (req, res) => {
+    try {
+        const { fileKey } = req.body;
+
+        if (!fileKey) {
+            return res.status(400).json({ error: "Missing file key" });
+        }
+
+        const userId = req.user?.userId;
+
+        if (!fileKey.startsWith(`${userId}/profile-pictures/`)) {
+            return res.status(403).json({ error: "Unauthorized to delete this file" });
+        }
+
+        const deleteCommand = new DeleteObjectCommand({
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: fileKey,
+        });
+
+        await s3.send(deleteCommand);
+
+        res.status(200).json({ success: true, message: "File deleted successfully" });
+    } catch (err) {
+        console.error("Error deleting file:", err);
+        res.status(500).json({ error: "Failed to delete file" });
+    }
+};

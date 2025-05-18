@@ -10,7 +10,7 @@ const userProfileSchema = new mongoose.Schema(
         },
         gender: {
             type: String,
-            enum: ["Male", "Female", "Other"],
+            enum: ["male", "female", "other"],
         },
         bloodGroup: {
             type: String,
